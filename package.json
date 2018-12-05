@@ -1,0 +1,19 @@
+{
+  "name": "realworld-next-apollo-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "dev": "node server.js",
+    "build": "next build",
+    "start": "NODE_ENV=production node server.js"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "next": "^7.0.2",
+    "react": "^16.6.3",
+    "react-dom": "^16.6.3",
+    "superouter": "^0.2.0"
+  }
+}
