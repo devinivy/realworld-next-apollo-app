@@ -1,7 +1,21 @@
 import Layout from '../components/Layout';
+import { Query } from 'react-apollo'
+import gql from 'graphql-tag'
+import { withRouter } from 'next/router'
 
-export default (props) => (
+const GET_ARTICLE = gql`
+    query getArticle($slug: ID!) {
+        article(slug: $slug) {
+            author { username }
+        }
+    }
+`;
+
+export default withRouter(({ router }) => (
     <Layout>
+        <Query query={GET_ARTICLE} variables={{ slug: router.query.slug }}>
+            {({ loading, data, error }) => <pre>{JSON.stringify({ loading, data, error }, null, 2)}</pre>}
+        </Query>
         <div className='article-page'>
             <div className='banner'>
                 <div className='container'>
@@ -35,4 +49,4 @@ export default (props) => (
             </div>
         </div>
     </Layout>
-);
+));

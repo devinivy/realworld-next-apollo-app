@@ -1,3 +1,3 @@
-import ShowRouteInfo from '../components/ShowRouteInfo';
+import ShowRouteInfo from '../../components/ShowRouteInfo';
 
 export default ShowRouteInfo;
