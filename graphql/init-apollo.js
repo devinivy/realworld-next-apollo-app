@@ -22,12 +22,29 @@ export default (initialState) => {
     return internals.apolloClient;
 };
 
-internals.create = (initialState) => {
+internals.create = (initialState = {}) => {
 
     return new ApolloClient({
         connectToDevTools: !!process.browser,
-        ssrMode: !process.browser, // Disables forceFetch on the server (so queries are only run once)
-        cache: new InMemoryCache().restore(initialState || {}),
+        ssrMode: !process.browser,                          // Disables forceFetch on the server (so queries are only run once)
+        cache: new InMemoryCache({
+            dataIdFromObject: ({ __typename, ...obj }) => {
+
+                const idFields = {
+                    Article: 'slug',
+                    Profile: 'username'
+                };
+
+                const idField = idFields[__typename] || 'id';
+                const id = obj[idField];
+
+                if (!id) {
+                    return null;
+                }
+
+                return `${__typename}:${id}`;
+            }
+        }).restore(initialState),
         link: createBridgeLink({
             schema,
             resolvers,

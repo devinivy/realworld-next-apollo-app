@@ -1,9 +1,15 @@
 import { GraphQLScalarType } from 'graphql';
 import { Kind } from 'graphql/language';
+import * as API from './api-client'
 
 export default {
     Query: {
-        article: (parent, args, context) => null
+        article: async (parent, { slug }) => {
+
+            const { article } = await API.getArticle({ slug });
+
+            return article;
+        }
     },
     Date: new GraphQLScalarType({
         name: 'Date',

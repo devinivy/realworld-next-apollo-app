@@ -6,6 +6,7 @@ import { withRouter } from 'next/router'
 const GET_ARTICLE = gql`
     query getArticle($slug: ID!) {
         article(slug: $slug) {
+            slug
             author { username }
         }
     }
